@@ -23,7 +23,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'price' => 'required|numeric',
+            'description' => 'required|string',
+        ]);
+
+        $product = Product::create($validatedData);
+
+        return response()->json(['message' => 'Product created successfully', 'product' => $product], 201);
     }
 
     /**
